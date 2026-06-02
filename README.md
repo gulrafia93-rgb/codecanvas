@@ -25,8 +25,8 @@ A fully responsive, interactive dessert ordering page built from a Figma design 
 * **Design to Code:** Figma-accurate UI development
 * **Version Control:** Git & GitHub
 
-![Dessert-Product-List-Folder](./desserts-product-list)
----
+![Project1-Folder](./desserts-product-list)
+-----------------------------------------------------------------------------------------------------------------------------
 
 ## 📂 Repository Structure
 
