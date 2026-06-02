@@ -15,8 +15,7 @@ async function loadData() {
                     <img src="${product.image.desktop}" alt="${product.name}" class="product-img">
                     <div class="button-container">
                         <button class="cart-btn">
-                           🛒
-                           Add to Cart
+                           🛒 Add to Cart
                         </button>
                     </div>
                 </div>
@@ -67,9 +66,9 @@ function updateAllCardButtons() {
             img.style.border = "2px solid #C73B0F";
             btnContainer.innerHTML = `
                 <div class="counter-btn">
-                    <span class="minus-icon">−</span>
-                    <span class="qty-text">${currentItem.qty}</span>
-                    <span class="plus-icon">+</span>
+                    <span class="minus-icon" role="button" aria-label="Decrease quantity">−</span>
+                    <span class="qty-text" aria-live="polite">${currentItem.qty}</span>
+                    <span class="plus-icon" role="button" aria-label="Increase quantity">+</span>
                 </div>`;
 
             btnContainer.querySelector('.minus-icon').addEventListener('click', (e) => {
@@ -103,7 +102,7 @@ function resetCardToDefault(card, productName) {
     img.style.border = "none";
     btnContainer.innerHTML = `
         <button class="cart-btn">
-            Add to Cart
+            🛒 Add to Cart
         </button>`;
     
     let priceText = card.querySelector('.price').innerText.replace('$', '');
@@ -141,7 +140,7 @@ function updateCartUI() {
                     <span class="total-item-price">$${(item.price * item.qty).toFixed(2)}</span>
                 </div>
             </div>
-            <button class="remove-btn" data-name="${item.name}">×</button>`;
+            <button class="remove-btn" data-name="${item.name}" aria-label="Remove ${item.name} from cart">×</button>`;
 
         itemContainer.appendChild(newDiv);
     });
@@ -172,8 +171,10 @@ function updateCartUI() {
         document.getElementById('confirmOrderBtn').addEventListener('click', () => {
             let modal = document.getElementById('orderModal');
             let modalItemsContainer = document.getElementById('modalItems');
-            
-            modal.style.display = 'flex';
+
+            // Native showModal application access handling built-in focus management
+            modal.showModal();
+            modal.style.display = 'flex'; 
             modalItemsContainer.innerHTML = ""; 
             
             cart.forEach(item => {
@@ -209,5 +210,11 @@ document.getElementById('startNewOrderBtn').addEventListener('click', () => {
     cart = [];
     updateCartUI();
     updateAllCardButtons();
-    document.getElementById('orderModal').style.display = 'none';
+    
+    let modal = document.getElementById('orderModal');
+    modal.style.display = 'none';
+    modal.close();
+    
+    const trackingTrigger = document.getElementById('confirmOrderBtn') || document.getElementById('productGrid');
+    if (trackingTrigger) trackingTrigger.focus();
 });
