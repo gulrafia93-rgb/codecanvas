@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desserts Product List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Red+Hat+Text:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Red Hat Text', sans-serif;
+            background-color: #FCF9F7;
+            color: #26201E;
+            padding: 40px 20px;
+        }
+
+        .mainContainer {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            max-width: 1216px;
+            margin: 0 auto;
+        }
+
+        .page-title {
+            font-size: 40px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Desktop Layout */
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 2.2fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        #productGrid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px 25px;
+        }
+         
+        .product-card {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .img-container {
+            width: 100%;
+            position: relative;
+            margin-bottom: 28px;
+        }
+
+        .product-img {
+            width: 100%;
+            height: 240px;
+            border-radius: 8px;
+            object-fit: cover;
+            display: block;
+            transition: border 0.2s ease;
+        }
+
+        .button-container {
+            position: absolute;
+            bottom: -22px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 180px;
+            height: 44px;
+            z-index: 10;
+        }
+
+        .cart-btn {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            background-color: white;
+            border: 1px solid #AD8A85;
+            color: #26201E;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .cart-btn:hover {
+            border-color: #C73B0F;
+            color: #C73B0F;
+        }
+
+        .counter-btn {
+            width: 100%;
+            height: 100%;
+            border-radius: 25px;
+            background-color: #C73B0F;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 16px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .minus-icon, .plus-icon {
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 20px;
+            height: 20px;
+            border: 1px solid white;
+            border-radius: 50%;
+            font-size: 14px;
+            transition: all 0.2s ease;
+            user-select: none;
+        }
+
+        .minus-icon:hover, .plus-icon:hover {
+            background-color: white;
+            color: #C73B0F;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            margin-top: 5px;
+        }
+
+        .info .category {
+            color: #87635A;
+            font-size: 14px;
+            font-weight: 400;
+        }
+
+        .info h4 {
+            font-size: 16px;
+            color: #26201E;
+            font-weight: 600;
+        }
+
+        .info .price {
+            color: #C73B0F;
+            font-weight: 600;
+            font-size: 16px;
+        }
+       
+        /* Cart Interface with Remove Button Elements */
+        #cartSection {
+            background-color: white;
+            border-radius: 12px;
+            padding: 24px;
+        }
+        
+        #cartSection h2 {
+            color: #C73B0F;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 0;
+            border-bottom: 1px solid #F4EDEB;
+        }
+
+        .cart-item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .cart-item-info p {
+            font-weight: 600;
+            font-size: 14px;
+            color: #26201E;
+        }
+
+        .cart-item-details {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+        }
+
+        .cart-item .qty {
+            color: #C73B0F;
+            font-weight: 600;
+            margin-right: 12px;
+        }
+
+        .cart-item .single-price {
+            color: #87635A;
+            margin-right: 8px;
+        }
+
+        .cart-item .total-item-price {
+            color: #26201E;
+            font-weight: 600;
+        }
+
+        /* Figma Style Cross Remove Button */
+        .remove-btn {
+            background: transparent;
+            border: 1px solid #AD8A85;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #AD8A85;
+            font-size: 14px;
+            line-height: 1;
+            transition: all 0.2s ease;
+        }
+
+        .remove-btn:hover {
+            border-color: #26201E;
+            color: #26201E;
+        }
+        
+        #cartTotal {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin-top: 16px;
+        }
+
+        .total-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            font-size: 14px;
+            font-weight: 400;
+            color: #26201E;
+            margin-bottom: 24px;
+        }
+
+        .total-row .total-price-text {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .delivery-note {
+            background-color: #FCF9F7;
+            padding: 16px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+            text-align: center;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        #confirmOrderBtn {
+            background-color: #C73B0F; 
+            color: white;
+            border: none;
+            padding: 16px;
+            width: 100%;
+            border-radius: 25px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        #confirmOrderBtn:hover {
+            background-color: #A02F0B;
+        }
+
+        /* Mobile View Media Query */
+        @media (max-width: 768px) {
+            body {
+                padding: 24px 20px;
+            }
+
+            .page-title {
+                font-size: 36px;
+                margin-bottom: 20px;
+            }
+
+            .content-wrapper {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            #productGrid {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .product-card {
+                max-width: 100%;
+                align-items: flex-start;
+            }
+
+            .product-img {
+                width: 100%;
+                height: 250px; 
+                border-radius: 8px;
+            }
+
+            .button-container {
+                bottom: -22px;
+            }
+
+            #cartSection {
+                margin-top: 10px;
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="mainContainer">
+        <h1 class="page-title">Desserts</h1>
+        
+        <div class="content-wrapper">
+            <div id="productGrid"></div>
+            <div id="cartSection">
+                <h2>Your Cart (<span id="cartCount">0</span>)</h2>
+                <div id="cartItems"></div>
+                <div id="cartTotal"></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="orderModal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); justify-content: center; align-items: center; z-index: 1000; padding: 16px;">
+        <div style="background-color: white; padding: 40px; border-radius: 12px; max-width: 592px; width: 100%; max-height: 90vh; overflow-y: auto;">
+            <span style="font-size: 48px; color: #156509; display: block; margin-bottom: 24px;">✅</span>
+            <h2 style="color: #26201E; font-size: 40px; font-weight: 700; line-height: 120%;">Order Confirmed</h2>
+            <p style="color: #87635A; font-size: 16px; margin-bottom: 32px; margin-top: 8px;">We hope you enjoy your food!</p>
+            <div id="modalItems" style="background-color: #FCF9F7; padding: 24px; border-radius: 8px; margin-bottom: 32px;"></div>
+            <button id="startNewOrderBtn" style="background-color: #C73B0F; color: white; border: none; padding: 16px; width: 100%; border-radius: 25px; font-weight: 600; font-size: 16px; cursor: pointer;">Start New Order</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
