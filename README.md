@@ -40,3 +40,5 @@ codecanvas/
     ├── index.html            # Markup with embedded responsive styles
     ├── data.json             # Dynamic product data source
     └── script.js             # Cart logic and state management
+
+![Dessert-Product-List-Folder](./desserts-product-list)
