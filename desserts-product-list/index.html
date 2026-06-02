@@ -291,6 +291,20 @@
             background-color: #A02F0B;
         }
 
+        .modal {
+    border: none;
+    border-radius: 12px;
+    padding: 24px;
+    max-width: 500px;
+    width: 90%;
+}
+
+
+.modal::backdrop {
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px); 
+}
+
         /* Mobile View Media Query */
         @media (max-width: 768px) {
             body {
