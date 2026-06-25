@@ -2,9 +2,6 @@
 
 A modern, fully responsive, and high-performance **Mortgage Repayments Calculator** built with semantic HTML5, CSS3 Grid/Flexbox, and vanilla JavaScript. This tool allows users to calculate both standard **Repayment** (Principal + Interest) and **Interest-Only** mortgages with active state feedback and an intuitive, accessible UI.
 
-![Design Preview](https://img.shields.io/badge/UI--Design-Frontend%20Mentor-blueviolet?style=for-the-badge)
-![Tech Stack](https://img.shields.io/badge/Stack-HTML5%20%7C%20CSS3%20%7C%20JS%20(ES6%2B)-blue?style=for-the-badge)
-
 ---
 
 ## Features
